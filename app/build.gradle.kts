@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -7,6 +9,10 @@ android {
     namespace = "com.empty.homedownloader"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.empty.homedownloader"
         minSdk = 28
@@ -15,6 +21,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val url : String = gradleLocalProperties(rootDir).getProperty("API_URL") ?: ""
+        buildConfigField("String", "API_URL", "\"$url\"")
     }
 
     buildTypes {
