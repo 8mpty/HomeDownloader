@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         rv = findViewById(R.id.mainRV)
         rv.layoutManager = LinearLayoutManager(this)
         val appCheck = AppVersionChecker(this)
-        val fetchRequest = FetchMY(rv)
+        val fetchRequest = FetchMY(this,rv)
         val fetchHome = FetchHome()
 
         val appVersion = BuildConfig.VERSION_NAME
