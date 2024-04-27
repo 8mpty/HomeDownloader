@@ -2,14 +2,19 @@ package com.empty.homedownloader
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empty.homedownloader.utils.AppVersionChecker
+import com.empty.homedownloader.utils.FetchHome
 import com.empty.homedownloader.utils.FetchMY
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rv: RecyclerView
+    private lateinit var fetchHomeJob: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +23,23 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this)
         val appCheck = AppVersionChecker(this)
         val fetchRequest = FetchMY(rv)
+        val fetchHome = FetchHome()
 
         val appVersion = BuildConfig.VERSION_NAME
-        val targetVersion = "1.0" // For testing
-        appCheck.run(appVersion, targetVersion)
+        fetchHomeJob = CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val targetVersion = fetchHome.fetchHomeRequest(BuildConfig.HOME_URL)
+                appCheck.run(appVersion, targetVersion)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
 
-        fetchRequest.fetchRequest()
+        fetchRequest.fetchRequest(BuildConfig.MY_URL)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        fetchHomeJob.cancel()
     }
 }

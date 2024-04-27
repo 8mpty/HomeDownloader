@@ -22,8 +22,11 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        val url : String = gradleLocalProperties(rootDir).getProperty("API_URL") ?: ""
-        buildConfigField("String", "API_URL", "\"$url\"")
+        val myurl : String = gradleLocalProperties(rootDir).getProperty("MY_URL") ?: ""
+        val homeurl : String = gradleLocalProperties(rootDir).getProperty("HOME_URL") ?: ""
+
+        buildConfigField("String", "MY_URL", "\"$myurl\"")
+        buildConfigField("String", "HOME_URL", "\"$homeurl\"")
     }
 
     buildTypes {
@@ -57,6 +60,10 @@ dependencies {
 
     val gsonVer = "2.10.1"
     implementation("com.google.code.gson:gson:${gsonVer}")
+
+    val coroutinesVer = "1.6.4"
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVer}")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

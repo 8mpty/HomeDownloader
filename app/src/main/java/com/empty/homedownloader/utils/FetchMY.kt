@@ -18,10 +18,8 @@ import java.io.IOException
 class FetchMY(private val rv: RecyclerView) {
     private val mainHandler = Handler(Looper.getMainLooper())
 
-    fun fetchRequest(){
-        val apiURL = BuildConfig.API_URL
-
-        val request = Request.Builder().url(apiURL).build()
+    fun fetchRequest(api : String){
+        val request = Request.Builder().url(api).build()
 
         val client = OkHttpClient()
 
@@ -35,10 +33,10 @@ class FetchMY(private val rv: RecyclerView) {
 
                 val gson = GsonBuilder().create()
                 val dataArray = gson.fromJson(body, Array<Models.Data>::class.java)
-                val parentFeed = Models.ParentFeed(dataArray.toList())
+                val mainData = Models.MainData(dataArray.toList())
 
                 mainHandler.post {
-                    rv.adapter = MYRVAdapter(parentFeed)
+                    rv.adapter = MYRVAdapter(mainData)
                 }
             }
         })

@@ -1,7 +1,7 @@
 package com.empty.homedownloader.myclasses
 
 class Models{
-    class ParentFeed(
+    class MainData(
         val allData: List<Data>
     )
 
@@ -16,5 +16,4 @@ class Models{
         val name: String, // For renaming the filename
         val browser_download_url: String // The actual url to download from
     )
-
 }

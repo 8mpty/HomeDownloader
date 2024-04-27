@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.empty.homedownloader.myclasses.Models
 import com.empty.homedownloader.R
 
-class MYRVAdapter(private val parentFeed: Models.ParentFeed): RecyclerView.Adapter<MYRVAdapter.CustomVH>() {
+class MYRVAdapter(private val parentFeed: Models.MainData): RecyclerView.Adapter<MYRVAdapter.CustomVH>() {
 
     inner class CustomVH(itemView: View) : RecyclerView.ViewHolder(itemView){
         val itemTitle : TextView = itemView.findViewById(R.id.itemTitle)
