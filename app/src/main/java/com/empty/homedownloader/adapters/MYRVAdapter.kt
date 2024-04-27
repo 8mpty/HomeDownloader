@@ -7,10 +7,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.empty.homedownloader.myclasses.ParentFeed
+import com.empty.homedownloader.myclasses.Models
 import com.empty.homedownloader.R
 
-class MY_RVAdapter(private val parentFeed: ParentFeed): RecyclerView.Adapter<MY_RVAdapter.CustomVH>() {
+class MYRVAdapter(private val parentFeed: Models.ParentFeed): RecyclerView.Adapter<MYRVAdapter.CustomVH>() {
 
     inner class CustomVH(itemView: View) : RecyclerView.ViewHolder(itemView){
         val itemTitle : TextView = itemView.findViewById(R.id.itemTitle)
@@ -33,7 +33,7 @@ class MY_RVAdapter(private val parentFeed: ParentFeed): RecyclerView.Adapter<MY_
         val assetData = data.assets.firstOrNull()
 
         if (position == 0) {
-            val first = data.name + " <-- Latest (Click This)"
+            val first = data.name + " <-- LATEST (Click This)"
             holder.itemTitle.text = first
         }else {
             holder.itemTitle.text = data.name
