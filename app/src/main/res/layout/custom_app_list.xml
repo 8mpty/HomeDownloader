@@ -23,6 +23,22 @@
             android:text="Title_PlAcEhOlDeR"/>
 
         <TextView
+            android:id="@+id/itemFilename"
+            android:layout_marginTop="10dp"
+            android:textSize="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FILENAME_PlAcEhOlDeR"/>
+
+        <TextView
+            android:id="@+id/itemUploaded"
+            android:layout_marginTop="5dp"
+            android:textSize="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UPLOADED_PlAcEhOlDeR"/>
+
+        <TextView
             android:id="@+id/itemUrl"
             android:paddingTop="15dp"
             android:layout_width="match_parent"

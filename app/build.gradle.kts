@@ -18,15 +18,15 @@ android {
         minSdk = 28
         targetSdk = 34
         versionCode = 1
-        versionName = "1.1"
+        versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        val testurl : String = gradleLocalProperties(rootDir).getProperty("TEST_URL") ?: ""
         val myurl : String = gradleLocalProperties(rootDir).getProperty("MY_URL") ?: ""
-        val homeurl : String = gradleLocalProperties(rootDir).getProperty("HOME_URL") ?: ""
 
+        buildConfigField("String", "TEST_URL", "\"$testurl\"")
         buildConfigField("String", "MY_URL", "\"$myurl\"")
-        buildConfigField("String", "HOME_URL", "\"$homeurl\"")
     }
 
     buildTypes {
