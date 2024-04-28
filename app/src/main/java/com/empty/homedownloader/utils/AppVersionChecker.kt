@@ -30,7 +30,10 @@ class AppVersionChecker(private val context : Context) {
             """.trimIndent(), Toast.LENGTH_LONG).show()
             showUpdateDialog(info)
         } else {
-            Toast.makeText(context, "App is up to date", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, """
+                App Version: $appVer
+                App is up to date
+            """.trimIndent(), Toast.LENGTH_SHORT).show()
         }
     }
     private fun isVersionGreaterThan(currentVersion: String, targetVersion: String): Int {
