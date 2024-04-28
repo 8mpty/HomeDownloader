@@ -2,6 +2,7 @@ package com.empty.homedownloader
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empty.homedownloader.utils.AppVersionChecker
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         rv = findViewById(R.id.mainRV)
         rv.layoutManager = LinearLayoutManager(this)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         val appCheck = AppVersionChecker(this)
         val fetchRequest = FetchMY(this,rv)
         val fetchHome = FetchHome()
@@ -28,8 +30,8 @@ class MainActivity : AppCompatActivity() {
         val appVersion = BuildConfig.VERSION_NAME
         fetchHomeJob = CoroutineScope(Dispatchers.Main).launch {
             try {
-                val targetVersion = fetchHome.fetchHomeRequest(BuildConfig.HOME_URL)
-                appCheck.run(appVersion, targetVersion)
+//                val targetVersion = fetchHome.fetchHomeRequest(BuildConfig.HOME_URL)
+//                appCheck.run(appVersion, targetVersion)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

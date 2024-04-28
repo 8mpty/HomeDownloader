@@ -1,5 +1,6 @@
 package com.empty.homedownloader.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,7 @@ class MYRVAdapter(private val parentFeed: Models.MainData): RecyclerView.Adapter
         if (position == 0) {
             val first = data.name + " <-- LATEST (Click This)"
             holder.itemTitle.text = first
+            holder.itemTitle.setTextColor(Color.parseColor("#03a56a"))
         }else {
             holder.itemTitle.text = data.name
         }
@@ -42,6 +44,16 @@ class MYRVAdapter(private val parentFeed: Models.MainData): RecyclerView.Adapter
         holder.itemUrl.text = assetData?.browser_download_url ?: "INVALID APP URL"
 
         val row = holder.itemRow.context
+
+        // Set background color based on focus state
+        holder.itemRow.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                holder.itemRow.setBackgroundColor(Color.parseColor("#808080"))
+            } else {
+                holder.itemRow.setBackgroundColor(Color.TRANSPARENT)
+            }
+        }
+
         holder.itemRow.setOnClickListener {
             Toast.makeText(row, assetData?.name, Toast.LENGTH_SHORT).show()
         }
