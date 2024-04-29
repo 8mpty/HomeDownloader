@@ -12,7 +12,6 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.empty.homedownloader.utils.AppVersionChecker
-import com.empty.homedownloader.utils.FetchHome
 import com.empty.homedownloader.utils.FetchMY
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,12 +45,11 @@ class MainActivity : AppCompatActivity() {
 
         appCheck = AppVersionChecker(this)
         val fetchRequest = FetchMY(this,rv)
-        val fetchHome = FetchHome()
 
         appVersion = BuildConfig.VERSION_NAME
         fetchHomeJob = CoroutineScope(Dispatchers.Main).launch {
             try {
-                info = fetchHome.fetchHomeRequest(BuildConfig.MY_URL)
+                info = fetchRequest.fetchHomeRequest(BuildConfig.MY_URL)
                 checkApp(appCheck!!, appVersion, info)
             } catch (e: Exception) {
                 e.printStackTrace()

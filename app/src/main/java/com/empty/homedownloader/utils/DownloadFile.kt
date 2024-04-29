@@ -1,9 +1,12 @@
 package com.empty.homedownloader.utils
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Environment
+import android.util.Log
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import java.io.File
 
@@ -27,17 +30,37 @@ class DownloadFile(private val context: Context, private val fileName: String) {
     }
 
     private fun installFile(file: File) {
-        val uri = FileProvider.getUriForFile(
-            context,
-            "com.empty.homedownloader.fileprovider",
-            file
-        )
+        if (file.exists()) {
+            val apkUri = FileProvider.getUriForFile(
+                context,
+                "com.empty.homedownloader.fileprovider",
+                file
+            )
 
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(uri, "application/vnd.android.package-archive")
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        context.startActivity(intent)
+            val installIntent = Intent(Intent.ACTION_VIEW)
+            installIntent.setDataAndType(apkUri, "application/vnd.android.package-archive")
+            installIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            installIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+            try {
+                context.startActivity(installIntent)
+            } catch (e: Exception) {
+                Log.e("InstallFile", "Error starting installation intent: ${e.message}")
+                Toast.makeText(context, "Error starting installation: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Log.e("InstallFile", "APK file does not exist")
+            Toast.makeText(context, "APK file not found", Toast.LENGTH_SHORT).show()
+        }
     }
+
+
+    private fun finishActivity() {
+        if (context is Activity) {
+            context.finish()
+        }
+    }
+
 
 
     private fun deleteFile(file: File) {
